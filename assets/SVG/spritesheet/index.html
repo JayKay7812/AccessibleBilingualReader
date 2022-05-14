@@ -1,0 +1,64 @@
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Ikonate</title>
+    <style>
+      :root {
+        --grey--light: #fafaff;
+        --white: #ffffff;
+      }
+
+      body {
+        background: var(--grey--light);
+      }
+
+      .main {
+        width: 1152px;
+        text-align: center;
+        margin: 0 auto;
+      }
+
+      .main__item {
+        background: var(--white);
+        border-radius: 4px;
+        padding: 20px;
+        display: inline-block;
+        margin: 10px;
+      }
+
+      .main__item svg {
+          width: 48px;
+          height: 48px;
+          stroke: #2329D6;
+          stroke-width: 1;
+          stroke-linecap: square;
+          stroke-linejoin: miter;
+          fill: none;
+          color: #2329D6;
+  }</style>
+  </head>
+
+  <body>
+    <div class="main">
+      <div class="main__item"><svg>
+          <title id="signLanguageIconTitle">Sign language</title>
+          <use xlink:href="./ikonate.svg#sign-language"></use>
+        </svg></div>
+      <div class="main__item"><svg>
+          <title id="earIconTitle">Ear (hearing)</title>
+          <use xlink:href="./ikonate.svg#ear"></use>
+        </svg></div>
+      <div class="main__item"><svg>
+          <title id="eyeIconTitle">Visible (eye)</title>
+          <use xlink:href="./ikonate.svg#eye"></use>
+        </svg></div>
+      <div class="main__item"><svg>
+          <title id="supportIconTitle">Support</title>
+          <use xlink:href="./ikonate.svg#support-alt"></use>
+        </svg></div>
+    </div>
+
+  </body>
+
+</html>
