@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>书架页-无障碍双语阅读工具</title>
+    <link rel="stylesheet" href="../assets/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+  </head>
+  <body onload="getAllList(); acSwitchCheck();">
+    <div class="btn-toolbar d-flex justify-content-center py-3 d-none" role="toolbar" id="actoolbar" aria-label="欢迎使用无障碍辅助功能">
+      <div class="btn-group me-2" role="group" aria-label="朗读控制">
+        <button type="button" class="btn btn-outline-primary" onclick="acSkipSwitch()">
+          <img src="../assets/img/arrow-down-circle.svg" width="40" height="40" alt="跳过导航栏">
+          跳过导航栏
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="acSpeakSwitch()">
+          <img src="../assets/img/unmute.svg" width="40" height="40" alt="朗读开关">
+          朗读开关
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="acPbrSwitch()">
+          <img src="../assets/img/pbr1.0.svg" width="40" height="40" id="pbrimg" alt="朗读语速,当前为1.0倍速">
+          朗读语速
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="acModeSwitch()">
+          <img src="../assets/img/controls-alt.svg" width="40" height="40" alt="朗读模式">
+          朗读模式
+        </button>
+      </div>
+      <div class="btn-group me-2" role="group" aria-label="文字控制">
+        <button type="button" class="btn btn-outline-primary" onclick="acColorSwitch()">
+          <img src="../assets/img/colours.svg" width="40" height="40" alt="文字配色">
+          文字配色
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="acFontSwitch()">
+          <img src="../assets/img/text.svg" width="40" height="40" alt="文字字号">
+          文字字号
+        </button>
+        <button type="button" class="btn btn-outline-primary" onclick="acCCSwitch()">
+          <img src="../assets/img/closedcaption.svg" width="40" height="40" alt="大字幕">
+          大字幕
+        </button>
+      </div>
+      <div class="btn-group" role="group" aria-label="光标控制">
+        <button type="button" class="btn btn-outline-primary" onclick="acCursorSwitch()">
+          <img src="../assets/img/cursor.svg" width="40" height="40" alt="光标样式">
+          光标样式
+        </button>
+      </div>
+      <div class="btn-group" role="group" aria-label="">
+        <button type="button" name="button" class="btn btn-primary" onclick="acDisplaySwitch()">
+          <img src="../assets/img/wheelchair.svg" width="50" height="50" alt="无障碍辅助功能开关">
+          无障碍
+        </button>
+      </div>
+    </div>
+    <div class="justify-content-center d-none bg-light fixed-bottom py-3" id="accc">
+      <p class="h2 text-center" id="cccontent"></p>
+    </div>
+    <header class="navbar navbar-expand-md navbar-dark bd-navbar" style="background-color:#2329D6;">
+      <nav class="container-xxl flex-wrap flex-md-nowrap" aria-label="主导航栏">
+        <a class="navbar-brand p-0 me-2" href="#" aria-label="前往首页">
+          <img src="../assets/img/logo-secondary.svg" width="70" height="70" alt="无障碍双语阅读器">
+        </a>
+        <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" aria-label="导航栏开关">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="bdNavbar">
+          <ul class="navbar-nav flex-row flex-wrap bd-navbar-nav pt-2 py-md-0">
+            <li class="nav-item col-6 col-md-auto">
+              <a class="nav-link p-2" href="../index.html" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Navbar&#39;, &#39;Community links&#39;, &#39;Bootstrap&#39;);">首页</a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a class="nav-link p-2" href="upload.html" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Navbar&#39;, &#39;Community links&#39;, &#39;Docs&#39;);">上传语料</a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a class="nav-link p-2 active" aria-current="page" href="filelist.html" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Navbar&#39;, &#39;Community links&#39;, &#39;Examples&#39;);">语料书架</a>
+            </li>
+            <li class="nav-item col-6 col-md-auto">
+              <a class="nav-link p-2" href="instruction.html" onclick="ga(&#39;send&#39;, &#39;event&#39;, &#39;Navbar&#39;, &#39;Community links&#39;, &#39;Icons&#39;);" target="_blank" rel="noopener">使用说明</a>
+            </li>
+          </ul>
+
+          <hr class="d-md-none text-white-50">
+
+          <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
+            <li class="nav-item col-6 col-md-auto">
+                <button type="button" name="button" class="btn btn-primary" onclick="acDisplaySwitch();"><img src="../assets/img/wheelchair.svg" width="50" height="50" alt="无障碍辅助功能">无障碍</button>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="bd-masthead mb-3 my-5" id="content">
+        <div class="container px-4 px-md-3">
+          <div class="row align-items-lg-center">
+            <h1 class="mb-3">语料书架</h1>
+            <p class="lead mb-4">这是您上传的全部语料，请搜索语料名关键词，或选择一份开始阅读。</p>
+            <div class="row col-md-7">
+              <form class="d-flex" id="searchForm1" enctype='multipart/form-data' method='POST'>
+                <input class="form-control me-2 flex-grow-1" type="search" placeholder="请输入搜索关键词" id="keyword" name="keyword" style="width:0px">
+                <button class="btn btn-outline-dark" type="button" onclick="getSearchList();">搜索</button>
+                <button class="btn btn-outline-dark" type="button" onclick="getAllList();">清除搜索条件</button>
+              </form>
+
+            </div>
+            <div class="row  row-cols-1 row-cols-md-4 g-4" id="cardlist">
+              <div class="col" id="cardtemplate" style="display: none;">
+                <div class="card">
+                  <div class="card-header">
+                    语料id：{0}
+                  </div>
+                  <div class="card-body">
+                    <h5 class="card-title">语料名：{1}</h5>
+                    <p class="card-text">语料类型：{2}</p>
+                    <p class="card-text">源语言：{3}</p>
+                    <p class="card-text">目标语言：{4}</p>
+                    <a href="reader.html?id={5}" class="btn btn-primary">开始阅读</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="../assets/jquery-3.6.0/jquery-3.6.0.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="../assets/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
+    <script src="../assets/jquery.validate/dist/jquery.validate.min.js"></script>
+    <script src="../include/js/filelist.js"></script>
+    <script src="../include/js/actool.js"></script>
+  </body>
+</html>
